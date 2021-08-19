@@ -1,8 +1,17 @@
 # ParseNLPContents
 
 ### Purpose
-* This is a web scraper/downloader for CS 447 NLP site contents.
+* This is a downloader for CS 447 NLP site contents.
 * Target URL: https://courses.grainger.illinois.edu/cs447/fa2020/
+
+### How it works
+* Use the `requests` library to gather the HTML of the target URL via the response.text attribute.
+* Use `BeatifulSoup` library for parsing the HTML text to gather links to downloadable PDFs.
+* Append the relative PDF links to the base URL so we have a collection of URLs to download.
+* Use `requests` again to download each file via requests.get()
+    * Mult-threading offers signifanct speed up but may download files out of order
+    * If you're picky about things like file "Modified Date" to align with ordering of the file name, set the `script.py` toggle to `THREADED=False`.
+* Use the response.content (contnet => byte representation of file in memory) and write out the contents to a file using standard Python file I/O using "write-bytes" mode. ex: `with open('', 'wb') ...`
 ___
 ### Install Dependencies
 * `git clone` this repo
@@ -100,3 +109,6 @@ requirements.txt
 venv
 └── ...
 ```
+___
+### Note on web scraping ethics
+This script is intended for a one-time or occasional ad hoc download to automate what a user would do manually to retrieve course content. "Automating the automation" by running the script at high frequency probably puts a burden on the server; that is not intended use.
