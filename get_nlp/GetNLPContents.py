@@ -52,6 +52,7 @@ class GetNLPContents:
     def download_file(url, target_dir=''):  
         """Downlaods file given URL."""
         
+        print(url)        
         response = requests.get(url)
 
         # ex: 'https://courses.grainger.illinois.edu/cs447/fa2020/slides/lecture01.pdf'
